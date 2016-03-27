@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Suicidal thoughts</string>
+    <string name="ok">OK</string>
+    <string name="permission_camera">Please permit the use of the Camera for the smile detection</string>
+    <string name="no_camera_permission">The permission to use the camera is not permitted!</string>
+
+</resources>
