@@ -2,10 +2,8 @@ package de.rrsoftware.suicidalthoughts.smileactivity.camera;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -140,7 +138,7 @@ public class CameraUtil {
     }
 
 
-    public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+    public boolean onRequestPermissionsResult(final int requestCode, final String[] permissions, final int[] grantResults) {
         if (requestCode != RC_HANDLE_CAMERA_PERM) {
             Log.d(LOGTAG, "Got unexpected permission result: " + requestCode);
             return false;

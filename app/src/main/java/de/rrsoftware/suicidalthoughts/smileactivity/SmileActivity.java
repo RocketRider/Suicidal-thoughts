@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import de.rrsoftware.suicidalthoughts.R;
 import de.rrsoftware.suicidalthoughts.smileactivity.camera.CameraUtil;
@@ -27,7 +26,7 @@ public class SmileActivity extends AppCompatActivity {
 
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
-        int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        final int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
             util.createCameraSource();
         } else {
@@ -42,7 +41,10 @@ public class SmileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        util.startCameraSource();
+        final int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if (rc == PackageManager.PERMISSION_GRANTED) {
+            util.startCameraSource();
+        }
     }
 
     /**

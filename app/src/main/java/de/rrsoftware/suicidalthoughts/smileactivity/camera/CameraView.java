@@ -1,7 +1,10 @@
 package de.rrsoftware.suicidalthoughts.smileactivity.camera;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.support.v4.app.ActivityCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -16,8 +19,8 @@ import java.io.IOException;
 public class CameraView extends ViewGroup {
     private static final String LOGTAG = "CameraView";
 
-    private Context context;
-    private SurfaceView surfaceView;
+    private final Context context;
+    private final SurfaceView surfaceView;
     private boolean startRequested;
     private boolean surfaceAvailable;
     private CameraSource cameraSource;
@@ -52,17 +55,13 @@ public class CameraView extends ViewGroup {
         }
     }
 
-    public void release() {
-        if (cameraSource != null) {
-            cameraSource.release();
-            cameraSource = null;
-        }
-    }
-
     private void startIfReady() throws IOException {
         if (startRequested && surfaceAvailable) {
-            cameraSource.start(surfaceView.getHolder());
-            startRequested = false;
+            final int rc = ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA);
+            if (rc == PackageManager.PERMISSION_GRANTED) {
+                cameraSource.start(surfaceView.getHolder());
+                startRequested = false;
+            }
         }
     }
 
