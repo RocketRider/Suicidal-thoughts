@@ -42,6 +42,7 @@ public class CameraView extends ViewGroup {
             stop();
         }
         this.cameraSource = cameraSource;
+        requestLayout();
 
         if (this.cameraSource != null) {
             startRequested = true;
@@ -86,40 +87,32 @@ public class CameraView extends ViewGroup {
         }
     }
 
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        int width = 320;
-        int height = 240;
+    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
+        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        final int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
+        final int height = (int) (parentHeight / 2);
+        int cameraWidth = 320;
+        int cameraHeight = 240;
         if (cameraSource != null) {
             Size size = cameraSource.getPreviewSize();
             if (size != null) {
-                width = size.getWidth();
-                height = size.getHeight();
+                cameraWidth = size.getWidth();
+                cameraHeight = size.getHeight();
             }
         }
+        final int width = (int) (((float) cameraHeight) / cameraWidth * height);
 
-        // Swap width and height sizes when in portrait, since it will be rotated 90 degrees
-        if (isPortraitMode()) {
-            int tmp = width;
-            width = height;
-            height = tmp;
-        }
+        setMeasuredDimension(width, height);
+    }
 
-        final int layoutWidth = right - left;
-        final int layoutHeight = bottom - top;
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
 
-        // Computes height and width for potentially doing fit width.
-        int childWidth = layoutWidth;
-        int childHeight = (int) (((float) layoutWidth / (float) width) * height);
-
-        // If height is too tall using fit width, does fit height instead.
-        if (childHeight > layoutHeight) {
-            childHeight = layoutHeight;
-            childWidth = (int) (((float) layoutHeight / (float) height) * width);
-        }
 
         for (int i = 0; i < getChildCount(); ++i) {
-            getChildAt(i).layout(0, 0, childWidth, childHeight);
+            getChildAt(i).layout(0, 0, width, height);
         }
 
         try {
@@ -128,6 +121,7 @@ public class CameraView extends ViewGroup {
             Log.e(LOGTAG, "Could not start camera source.", e);
         }
     }
+
 
     private boolean isPortraitMode() {
         int orientation = context.getResources().getConfiguration().orientation;
