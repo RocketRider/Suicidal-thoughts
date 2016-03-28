@@ -65,13 +65,8 @@ public class CameraUtil {
                 .show();
     }
 
-    /**
-     * Creates and starts the camera.  Note that this uses a higher resolution in comparison
-     * to other detection examples to enable the barcode detector to detect small barcodes
-     * at long distances.
-     */
-    public void createCameraSource() {
 
+    private FaceDetector createFaceDetector() {
         Context context = activity.getApplicationContext();
         FaceDetector detector = new FaceDetector.Builder(context)
                 .setClassificationType(FaceDetector.ALL_CLASSIFICATIONS)
@@ -92,13 +87,47 @@ public class CameraUtil {
             // download completes on device.
             Log.w(LOGTAG, "Face detector dependencies are not yet available.");
         }
+        return detector;
+    }
 
-        cameraSource = new CameraSource.Builder(context, detector)
+    /**
+     * Creates and starts the camera.  Note that this uses a higher resolution in comparison
+     * to other detection examples to enable the barcode detector to detect small barcodes
+     * at long distances.
+     */
+    public void createCameraSource(final boolean tryFrontCam) {
+
+        Context context = activity.getApplicationContext();
+        FaceDetector detector = createFaceDetector();
+
+        final CameraSource.Builder builder = new CameraSource.Builder(context, detector)
                 .setRequestedPreviewSize(640, 480)
-                .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setRequestedFps(30.0f)
-                .setAutoFocusEnabled(true)
-                .build();
+                .setAutoFocusEnabled(true);
+
+        //prefer the front camera
+        if (tryFrontCam) {
+            builder.setFacing(CameraSource.CAMERA_FACING_FRONT);
+        } else {
+            builder.setFacing(CameraSource.CAMERA_FACING_BACK);
+        }
+        cameraSource = builder.build();
+
+        if (tryFrontCam) {
+            try {
+                cameraSource.start();
+                cameraSource.stop();
+            } catch (SecurityException e) {
+                Log.e(LOGTAG, "No permission!");
+            } catch (Exception e) {
+                //If the front cam does not work create back cam!
+                cameraSource.stop();
+                cameraSource.release();
+                detector.release();
+                cameraSource = null;
+                createCameraSource(false);
+            }
+        }
     }
 
 
@@ -129,14 +158,12 @@ public class CameraUtil {
         }
     }
 
-
     public void release() {
         if (cameraSource != null) {
             cameraSource.release();
             cameraSource = null;
         }
     }
-
 
     public boolean onRequestPermissionsResult(final int requestCode, final String[] permissions, final int[] grantResults) {
         if (requestCode != RC_HANDLE_CAMERA_PERM) {
@@ -147,7 +174,7 @@ public class CameraUtil {
         if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Log.d(LOGTAG, "Camera permission granted - initialize the camera source");
             // we have permission, so create the camerasource
-            createCameraSource();
+            createCameraSource(activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
             return true;
         }
 

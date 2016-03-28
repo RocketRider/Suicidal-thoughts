@@ -28,7 +28,7 @@ public class SmileActivity extends AppCompatActivity {
         // permission is not granted yet, request permission.
         final int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
-            util.createCameraSource();
+            util.createCameraSource(getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT));
         } else {
             util.requestCameraPermission();
         }
