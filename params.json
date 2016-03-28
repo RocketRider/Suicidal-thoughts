@@ -1,6 +1,6 @@
 {
   "name": "Suicidal-thoughts",
   "tagline": "An Android app to help prevent suicides",
-  "body": "### Welcome to my litle project to help people in need\r\nI want to write an app to help people who are thinking about commiting suicide. If you want to help me develop this software or help me to fill it with content, please feel free to contact me.\r\n\r\n### Support or Contact\r\nIf you have any issues with the app, please open a issue on github. So I can make sure that it does not get lost.\r\nIf you don't have a github account you can send me an [e-mail](e-mail@rocketrider.eu).\r\n",
+  "body": "### Welcome to my litle project to help people in need\r\nI want to write an app to help people who are thinking about commiting suicide. If you want to help me develop this software or help me to fill it with content, please feel free to contact me.\r\n\r\n### Support or Contact\r\nIf you have any issues with the app, please open a issue on github. So I can make sure that it does not get lost.\r\nIf you don't have a github account you can send me an [e-mail](mailto:e-mail@rocketrider.eu).\r\n",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
