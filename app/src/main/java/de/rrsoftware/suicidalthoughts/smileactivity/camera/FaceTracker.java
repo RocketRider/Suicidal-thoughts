@@ -1,7 +1,5 @@
 package de.rrsoftware.suicidalthoughts.smileactivity.camera;
 
-import android.util.Log;
-
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;

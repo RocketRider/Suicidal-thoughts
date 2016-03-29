@@ -87,10 +87,11 @@ public class CameraView extends ViewGroup {
         }
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         final int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
-        final int height = (int) (parentHeight / 2);
+        final int height = parentHeight / 2;
         int cameraWidth = 320;
         int cameraHeight = 240;
         if (cameraSource != null) {

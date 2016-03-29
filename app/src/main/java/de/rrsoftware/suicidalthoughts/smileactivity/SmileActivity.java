@@ -3,6 +3,7 @@ package de.rrsoftware.suicidalthoughts.smileactivity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import de.rrsoftware.suicidalthoughts.R;
+import de.rrsoftware.suicidalthoughts.questions.ui.QuestionsActivity;
 import de.rrsoftware.suicidalthoughts.smileactivity.camera.CameraUtil;
 import de.rrsoftware.suicidalthoughts.smileactivity.camera.CameraView;
 
@@ -22,7 +24,7 @@ public class SmileActivity extends AppCompatActivity {
     private int smileStage = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smile);
         smileText = (TextView) findViewById(R.id.textBottom);
@@ -129,9 +131,14 @@ public class SmileActivity extends AppCompatActivity {
         }
         if (probability > 0.7) {
             smileStage = 3;
-            //TODO go to next activity
+            done();
         }
     }
 
+    private void done() {
+        Intent intent = new Intent(this, QuestionsActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }
