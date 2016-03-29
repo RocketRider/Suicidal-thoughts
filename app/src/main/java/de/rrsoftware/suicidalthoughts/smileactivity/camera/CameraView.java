@@ -100,6 +100,13 @@ public class CameraView extends ViewGroup {
                 cameraHeight = size.getHeight();
             }
         }
+        if (!isPortraitMode()) {
+            final int temp = cameraWidth;
+            cameraWidth = cameraHeight;
+            cameraHeight = temp;
+        }
+
+
         final int width = (int) (((float) cameraHeight) / cameraWidth * height);
 
         setMeasuredDimension(width, height);
@@ -109,7 +116,6 @@ public class CameraView extends ViewGroup {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
-
 
         for (int i = 0; i < getChildCount(); ++i) {
             getChildAt(i).layout(0, 0, width, height);
