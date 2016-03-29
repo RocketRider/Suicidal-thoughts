@@ -7,3 +7,4 @@ The content for this app is handled in a separate repository:
 [Suicidal-thoughts-content](https://github.com/RocketRider/Suicidal-thoughts-content)
 # Contributors
 - Michael Möbius(RocketRider)
+- Chtiwi Malek
