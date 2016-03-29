@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">Suicidal thoughts</string>
     <string name="ok">OK</string>
+
     <string name="permission_camera">Please permit the use of the Camera for the smile detection</string>
     <string name="no_camera_permission">The permission to use the camera is not permitted!</string>
-    <string name="smile_title">Give me a smile, I know you can do it</string>
+    <string name="smile_title">Just smile</string>
+    <string name="smile_top">Give me a smile, I know you can do it</string>
     <string name="smile_bottom">Come on, give it a try!</string>
     <string name="smile_bottom_2">Come on, you can do more!</string>
     <string name="smile_bottom_3">Just a little more!</string>
+
+    <string name="questions_title">Questions</string>
 </resources>

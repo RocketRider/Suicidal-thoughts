@@ -27,6 +27,7 @@ public class SmileActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smile);
+        setTitle(R.string.smile_title);
         smileText = (TextView) findViewById(R.id.textBottom);
 
         cameraView = (CameraView) findViewById(R.id.cameraView);
