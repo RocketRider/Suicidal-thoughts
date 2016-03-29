@@ -5,4 +5,6 @@
     <string name="no_camera_permission">The permission to use the camera is not permitted!</string>
     <string name="smile_title">Give me a smile, I know you can do it</string>
     <string name="smile_bottom">Come on, give it a try!</string>
+    <string name="smile_bottom_2">Come on, you can do more!</string>
+    <string name="smile_bottom_3">Just a little more!</string>
 </resources>

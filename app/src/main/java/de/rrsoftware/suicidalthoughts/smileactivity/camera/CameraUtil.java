@@ -19,6 +19,7 @@ import com.google.android.gms.vision.face.FaceDetector;
 import java.io.IOException;
 
 import de.rrsoftware.suicidalthoughts.R;
+import de.rrsoftware.suicidalthoughts.smileactivity.SmileActivity;
 
 public class CameraUtil {
     private static final String LOGTAG = "CameraUtil";
@@ -26,11 +27,11 @@ public class CameraUtil {
     private static final int RC_HANDLE_CAMERA_PERM = 2;
     private static final int RC_HANDLE_GMS = 9001;
 
-    private final Activity activity;
+    private final SmileActivity activity;
     private CameraSource cameraSource;
     private final CameraView view;
 
-    public CameraUtil(final Activity activity, final CameraView view) {
+    public CameraUtil(final SmileActivity activity, final CameraView view) {
         this.activity = activity;
         this.view = view;
     }
@@ -73,7 +74,7 @@ public class CameraUtil {
                 .build();
 
         detector.setProcessor(
-                new MultiProcessor.Builder<>(new FaceTrackerFactory())
+                new MultiProcessor.Builder<>(new FaceTrackerFactory(activity))
                         .build());
 
         if (!detector.isOperational()) {
