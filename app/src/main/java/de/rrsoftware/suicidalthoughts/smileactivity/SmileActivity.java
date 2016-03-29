@@ -16,6 +16,7 @@ import de.rrsoftware.suicidalthoughts.R;
 import de.rrsoftware.suicidalthoughts.questions.ui.QuestionsActivity;
 import de.rrsoftware.suicidalthoughts.smileactivity.camera.CameraUtil;
 import de.rrsoftware.suicidalthoughts.smileactivity.camera.CameraView;
+import de.rrsoftware.suicidalthoughts.task.AppInitTask;
 
 public class SmileActivity extends AppCompatActivity {
     private CameraView cameraView;
@@ -41,6 +42,9 @@ public class SmileActivity extends AppCompatActivity {
         } else {
             util.requestCameraPermission();
         }
+
+        //Start init task
+        new AppInitTask().execute(this);
     }
 
 
