@@ -3,10 +3,9 @@ package de.rrsoftware.suicidalthoughts.common.git;
 import android.util.Log;
 
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.PullResult;
 
 import java.io.File;
-import java.io.IOException;
 
 public final class GitRepo {
     private static final String LOGTAG = "GitRepoUtil";
@@ -37,15 +36,16 @@ public final class GitRepo {
         }
 
         //If the git is initialized, update it to the newest version
-        if (git == null) {
+        if (git != null) {
             try {
-                result = git.pull().call().isSuccessful();
+                final PullResult call = git.pull().call();
+                Log.i(LOGTAG, call.toString());
+                result = call.isSuccessful();
             } catch (Exception e) {
                 Log.e(LOGTAG, "pull git repo failed", e);
             }
         }
 
-        //TODO: Issue, always returns false
         return result;
     }
 

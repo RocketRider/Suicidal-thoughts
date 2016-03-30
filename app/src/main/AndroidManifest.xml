@@ -22,8 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".questions.ui.QuestionsActivity" />
+        <activity android:name=".content.ui.ContentActivity" />
     </application>
 
 </manifest>

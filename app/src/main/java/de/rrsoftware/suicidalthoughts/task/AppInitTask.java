@@ -1,32 +1,34 @@
 package de.rrsoftware.suicidalthoughts.task;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.Log;
 
-import java.io.File;
 
+import de.rrsoftware.suicidalthoughts.common.CommonVars;
 import de.rrsoftware.suicidalthoughts.common.git.GitRepo;
 
 public class AppInitTask extends AsyncTask<Context, Void, Void> {
+    private static final String LOGTAG = "AppInitTask";
+    private static boolean isInitialized = false;
 
-    private void downloadContent(final Context context) {
-        //ContextWrapper cw = new ContextWrapper(context);
-        File contentPath = new File(Environment.getExternalStorageDirectory(), "ST_content");//cw.getDir("content", Context.MODE_PRIVATE);
-        if (!contentPath.exists()) {
-            contentPath.mkdir();
+    private void downloadContent() {
+        if (!CommonVars.contentPath.exists()) {
+            CommonVars.contentPath.mkdir();
         }
 
-        Log.e("TEST", "Git start pull " + contentPath);
-        boolean result = GitRepo.pull("https://github.com/RocketRider/Suicidal-thoughts-content.git", contentPath);
-        Log.e("TEST", "Git result " + result);
+        if (!GitRepo.pull(CommonVars.contentRepoURL, CommonVars.contentPath)) {
+            Log.e(LOGTAG, "pull failed!");
+        }
     }
 
     @Override
     protected Void doInBackground(Context... context) {
-        downloadContent(context[0]);
+        if (!isInitialized) {
+            isInitialized = true;
+            CommonVars.init(context[0]);
+            downloadContent();
+        }
         return null;
     }
 }
