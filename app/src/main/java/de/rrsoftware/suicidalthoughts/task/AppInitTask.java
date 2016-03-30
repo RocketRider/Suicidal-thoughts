@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-
 import de.rrsoftware.suicidalthoughts.common.CommonVars;
 import de.rrsoftware.suicidalthoughts.common.git.GitRepo;
+import de.rrsoftware.suicidalthoughts.content.model.ContentLoader;
 
 public class AppInitTask extends AsyncTask<Context, Void, Void> {
     private static final String LOGTAG = "AppInitTask";
@@ -28,6 +28,7 @@ public class AppInitTask extends AsyncTask<Context, Void, Void> {
             isInitialized = true;
             CommonVars.init(context[0]);
             downloadContent();
+            ContentLoader.loadContent();
         }
         return null;
     }
