@@ -10,7 +10,7 @@ import de.rrsoftware.suicidalthoughts.R;
 import de.rrsoftware.suicidalthoughts.content.model.ContentDocument;
 
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHolder> {
-    private final ContentDocument document;
+    private ContentDocument document;
 
     public ContentAdapter(ContentDocument document) {
         this.document = document;
@@ -20,7 +20,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     @Override
     public ContentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                         int viewType) {
-        // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_content, parent, false);
         return new ViewHolder(v);
@@ -29,10 +28,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.title.setText(document.entries[position].getDocument().title);
-        holder.description.setText(document.entries[position].getDocument().description);
+        holder.setDocument(document.entries[position].getDocument());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -44,17 +40,32 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView title;
-        public final TextView description;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private final TextView title;
+        private final TextView description;
         // each data item is just a string in this case
         private final View view;
+        private ContentDocument document;
 
         public ViewHolder(View v) {
             super(v);
             view = v;
             title = (TextView) view.findViewById(R.id.title);
             description = (TextView) view.findViewById(R.id.description);
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ContentAdapter.this.document = document;
+                    ContentAdapter.this.notifyDataSetChanged();
+                    //TODO: Add to back stack
+                }
+            });
+        }
+
+        public void setDocument(ContentDocument document) {
+            this.document = document;
+            title.setText(document.title);
+            description.setText(document.description);
         }
     }
 }
