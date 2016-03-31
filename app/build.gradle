@@ -40,4 +40,5 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.6.5' //2.7 needs Java 7
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.5'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.6.5'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
 }

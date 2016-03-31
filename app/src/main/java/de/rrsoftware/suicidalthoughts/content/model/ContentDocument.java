@@ -8,7 +8,7 @@ import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ContentDocument {
-    private static Map<String, ContentDocument> documents = new HashMap<>();
+    private static final Map<String, ContentDocument> documents = new HashMap<>();
     @JsonProperty("title")
     public String title;
     @JsonProperty("description")

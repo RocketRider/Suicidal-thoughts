@@ -5,15 +5,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.TextView;
 
 import de.rrsoftware.suicidalthoughts.R;
-import de.rrsoftware.suicidalthoughts.questions.ui.QuestionsActivity;
+import de.rrsoftware.suicidalthoughts.content.ui.ContentActivity;
 import de.rrsoftware.suicidalthoughts.smileactivity.camera.CameraUtil;
 import de.rrsoftware.suicidalthoughts.smileactivity.camera.CameraView;
 import de.rrsoftware.suicidalthoughts.task.AppInitTask;
@@ -141,7 +141,7 @@ public class SmileActivity extends AppCompatActivity {
     }
 
     private void done() {
-        Intent intent = new Intent(this, QuestionsActivity.class);
+        Intent intent = new Intent(this, ContentActivity.class);
         startActivity(intent);
         finish();
     }

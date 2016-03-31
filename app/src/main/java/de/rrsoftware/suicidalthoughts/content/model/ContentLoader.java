@@ -23,7 +23,7 @@ public final class ContentLoader {
             e.printStackTrace();
         }
         if (document != null) {
-            String id = "";//TODO
+            String id = "content";//TODO
             document.setId(id);
         }
     }
