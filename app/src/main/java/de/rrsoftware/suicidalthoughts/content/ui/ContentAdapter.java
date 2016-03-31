@@ -31,8 +31,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.title.setText("Title");//document.entries[position].getDocument().title);
-        holder.description.setText(document.entries[position].id);//document.entries[position].getDocument().title);
+        holder.title.setText(document.entries[position].getDocument().title);
+        holder.description.setText(document.entries[position].getDocument().description);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
