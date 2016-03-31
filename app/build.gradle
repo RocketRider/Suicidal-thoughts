@@ -37,7 +37,7 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
     compile 'org.eclipse.jgit:org.eclipse.jgit:3.7.1.201504261725-r'
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.7.3'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.3'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.6.5' //2.7 needs Java 7
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.5'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.5'
 }
