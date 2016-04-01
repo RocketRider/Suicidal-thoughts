@@ -42,9 +42,15 @@ public class ContentDocument {
         return contentURL;
     }
 
-    public void setContentURL(final String url) {
+    public void setBasePath(final String url) {
         if (content != null && !content.isEmpty()) {
             contentURL = "file://" + url + "/" + content;
+        }
+        if (image != null && !image.isEmpty()) {
+            image = url + "/" + image;
+        }
+        if (icon != null && !icon.isEmpty()) {
+            icon = url + "/" + icon;
         }
     }
 
