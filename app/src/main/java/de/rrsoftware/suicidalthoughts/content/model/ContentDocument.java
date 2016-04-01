@@ -22,7 +22,8 @@ public class ContentDocument {
     @JsonProperty("entries")
     public ContentRefEntry[] entries;
     //Specified with path to json file
-    private String id;
+    private String id = null;
+    private String contentURL = null;
 
     public static ContentDocument findById(final String id) {
         return documents.get(id);
@@ -36,4 +37,15 @@ public class ContentDocument {
         this.id = id;
         documents.put(id, this);
     }
+
+    public String getContentURL() {
+        return contentURL;
+    }
+
+    public void setContentURL(final String url) {
+        if (content != null && !content.isEmpty()) {
+            contentURL = "file://" + url + "/" + content;
+        }
+    }
+
 }

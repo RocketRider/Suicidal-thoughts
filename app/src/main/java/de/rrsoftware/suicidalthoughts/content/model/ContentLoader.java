@@ -23,6 +23,7 @@ public final class ContentLoader {
         }
         if (document != null) {
             document.setId(id);
+            document.setContentURL(file.getParent());
         }
     }
 

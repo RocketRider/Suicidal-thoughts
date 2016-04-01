@@ -9,7 +9,16 @@ import de.rrsoftware.suicidalthoughts.R;
 import de.rrsoftware.suicidalthoughts.content.model.ContentDocument;
 
 public class ContentActivity extends AppCompatActivity {
+    private final static String KEY_DOCUMENT = "document";
+
     private RecyclerView contentView;
+    private ContentAdapter adapter;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_DOCUMENT, adapter.getDocument().getId());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +31,36 @@ public class ContentActivity extends AppCompatActivity {
         // in content do not change the layout size of the RecyclerView
         contentView.setHasFixedSize(true);
 
-        // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         contentView.setLayoutManager(layoutManager);
 
-        // specify an adapter (see also next example)
-        ContentAdapter adapter = new ContentAdapter(ContentDocument.findById("content"));
+        String doc = "content";
+        if (savedInstanceState != null) {
+            doc = savedInstanceState.getString(KEY_DOCUMENT);
+        }
+        adapter = new ContentAdapter(ContentDocument.findById(doc), this);
         contentView.setAdapter(adapter);
+    }
 
+
+    @Override
+    public void onBackPressed() {
+        boolean handled = false;
+        if (adapter != null && adapter.getDocument() != null) {
+            String docId = adapter.getDocument().getId();
+            if (docId.contains(".")) {
+                do {
+                    docId = docId.substring(0, docId.lastIndexOf('.'));
+                    ContentDocument newDoc = ContentDocument.findById(docId);
+                    if (newDoc != null) {
+                        adapter.setDocument(newDoc);
+                        handled = true;
+                    }
+                } while (!handled && docId.contains("."));
+            }
+        }
+        if (!handled) {
+            super.onBackPressed();
+        }
     }
 }

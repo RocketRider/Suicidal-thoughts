@@ -1,9 +1,12 @@
 package de.rrsoftware.suicidalthoughts.content.ui;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import de.rrsoftware.suicidalthoughts.R;
@@ -11,9 +14,32 @@ import de.rrsoftware.suicidalthoughts.content.model.ContentDocument;
 
 public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHolder> {
     private ContentDocument document;
+    private WebView aboutView;
 
-    public ContentAdapter(ContentDocument document) {
+    public ContentAdapter(ContentDocument document, Activity parent) {
+        aboutView = (WebView) parent.findViewById(R.id.aboutView);
+        setDocument(document);
+    }
+
+    public ContentDocument getDocument() {
+        return document;
+    }
+
+    public void setDocument(final ContentDocument document) {
         this.document = document;
+        notifyDataSetChanged();
+
+        if (document != null && aboutView != null) {
+            if (document.content != null && !document.content.isEmpty()) {
+                aboutView.setVisibility(View.VISIBLE);
+                aboutView.loadUrl(document.getContentURL());
+                aboutView.setBackgroundColor(Color.TRANSPARENT);
+            } else {
+                aboutView.setVisibility(View.GONE);
+            }
+        }
+
+        //TODO: Add to back stack
     }
 
     // Create new views (invoked by the layout manager)
@@ -55,9 +81,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ContentAdapter.this.document = document;
-                    ContentAdapter.this.notifyDataSetChanged();
-                    //TODO: Add to back stack
+                    ContentAdapter.this.setDocument(document);
                 }
             });
         }

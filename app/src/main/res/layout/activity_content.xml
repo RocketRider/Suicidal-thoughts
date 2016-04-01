@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     tools:context="de.rrsoftware.suicidalthoughts.content.ui.ContentActivity">
 
+    <WebView
+        android:id="@+id/aboutView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/contentEntries"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/aboutView"
         android:scrollbars="vertical" />
 
 </RelativeLayout>
