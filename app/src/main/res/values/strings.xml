@@ -10,5 +10,12 @@
     <string name="smile_bottom_2">Come on, you can do more!</string>
     <string name="smile_bottom_3">Just a little more!</string>
 
+    <string name="content_title">Stories</string>
+
     <string name="questions_title">Questions</string>
+
+    <string name="version_text">Version: %s</string>
+    <string name="about">About</string>
+    <string name="about_desc">Help and find help</string>
+
 </resources>

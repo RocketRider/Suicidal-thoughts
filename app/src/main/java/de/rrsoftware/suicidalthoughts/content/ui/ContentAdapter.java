@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import de.rrsoftware.suicidalthoughts.R;
@@ -18,6 +19,12 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
 
     public ContentAdapter(ContentDocument document, Activity parent) {
         aboutView = (WebView) parent.findViewById(R.id.aboutView);
+        aboutView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                aboutView.setVisibility(View.VISIBLE);
+            }
+        });
+        aboutView.setBackgroundColor(Color.TRANSPARENT);
         setDocument(document);
     }
 
@@ -31,15 +38,11 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
 
         if (document != null && aboutView != null) {
             if (document.content != null && !document.content.isEmpty()) {
-                aboutView.setVisibility(View.VISIBLE);
                 aboutView.loadUrl(document.getContentURL());
-                aboutView.setBackgroundColor(Color.TRANSPARENT);
             } else {
                 aboutView.setVisibility(View.GONE);
             }
         }
-
-        //TODO: Add to back stack
     }
 
     // Create new views (invoked by the layout manager)

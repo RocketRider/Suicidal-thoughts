@@ -1,14 +1,14 @@
 package de.rrsoftware.suicidalthoughts.content.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import de.rrsoftware.suicidalthoughts.R;
+import de.rrsoftware.suicidalthoughts.common.ui.NavigationActivity;
 import de.rrsoftware.suicidalthoughts.content.model.ContentDocument;
 
-public class ContentActivity extends AppCompatActivity {
+public class ContentActivity extends NavigationActivity {
     private final static String KEY_DOCUMENT = "document";
 
     private RecyclerView contentView;
@@ -22,8 +22,8 @@ public class ContentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
+        super.onCreate(savedInstanceState);
 
         contentView = (RecyclerView) findViewById(R.id.contentEntries);
 

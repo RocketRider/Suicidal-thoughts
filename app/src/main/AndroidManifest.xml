@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".questions.ui.QuestionsActivity" />
         <activity android:name=".content.ui.ContentActivity" />
+        <activity android:name=".about.ui.AboutActivity"></activity>
     </application>
 
 </manifest>
